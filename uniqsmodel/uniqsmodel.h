@@ -8,7 +8,7 @@
 #include "pugiconfig.hpp"
 #include "pugixml.hpp"
 
-class UniqsProto {
+class UniqsModel {
    public:
     // 从配置的xml里面读取各部分的内容
     bool ReadProto(const std::string& strFrom, std::string& strError);

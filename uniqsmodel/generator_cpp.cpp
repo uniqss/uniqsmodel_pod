@@ -24,7 +24,7 @@
     ++indent;
 
 
-bool Generator_cpp::Generate(UniqsProto &proto, const string &strTo, const string &strPBTo, std::string &strError) {
+bool Generator_cpp::Generate(UniqsModel &proto, const string &strTo, const string &strPBTo, std::string &strError) {
     if (!_GenerateDefines(proto, strTo, strError)) {
         return false;
     }
@@ -39,7 +39,7 @@ bool Generator_cpp::Generate(UniqsProto &proto, const string &strTo, const strin
     return true;
 }
 
-bool Generator_cpp::_GenerateDefines(UniqsProto &proto, const string &strTo, std::string &strError) {
+bool Generator_cpp::_GenerateDefines(UniqsModel &proto, const string &strTo, std::string &strError) {
     Indent indent;
 
     string strEnumMsgName = "E" + proto.m_strName + "Msg";
@@ -83,7 +83,7 @@ bool Generator_cpp::_GenerateDefines(UniqsProto &proto, const string &strTo, std
     return true;
 }
 
-bool Generator_cpp::_GenerateStructs_header(UniqsProto &proto, const string &strTo, std::string &strError) {
+bool Generator_cpp::_GenerateStructs_header(UniqsModel &proto, const string &strTo, std::string &strError) {
     for (const auto &it : proto.vecStructs) {
         string strToFile = strTo;
         strToFile += it.strName;
@@ -180,7 +180,7 @@ bool Generator_cpp::_GenerateStructs_header(UniqsProto &proto, const string &str
     return true;
 }
 
-bool Generator_cpp::_GenerateStructs_source(UniqsProto &proto, const string &strTo, std::string &strError) {
+bool Generator_cpp::_GenerateStructs_source(UniqsModel &proto, const string &strTo, std::string &strError) {
     string strDefineName = proto.m_strName + pszDefinePostfix;
     for (const auto &it : proto.vecStructs) {
         string strToFile = strTo;

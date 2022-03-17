@@ -1,4 +1,4 @@
-#include "uniqsproto.h"
+#include "uniqsmodel.h"
 
 #include "stl.h"
 
@@ -6,7 +6,7 @@
 
 #include "typeparser.h"
 
-bool UniqsProto::ReadProto(const std::string& strFrom, std::string& strError) {
+bool UniqsModel::ReadProto(const std::string& strFrom, std::string& strError) {
     pugi::xml_parse_result result = m_doc.load_file(strFrom.c_str());
 
     if (!result) {
@@ -76,7 +76,7 @@ bool UniqsProto::ReadProto(const std::string& strFrom, std::string& strError) {
     return true;
 }
 
-bool UniqsProto::ReadProto_includes(pugi::xml_node& node, std::string& strError) {
+bool UniqsModel::ReadProto_includes(pugi::xml_node& node, std::string& strError) {
     const auto& includes = node.children(pszInclude);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -115,7 +115,7 @@ bool UniqsProto::ReadProto_includes(pugi::xml_node& node, std::string& strError)
     return true;
 }
 
-bool UniqsProto::ReadProto_defines(pugi::xml_node& node, std::string& strError) {
+bool UniqsModel::ReadProto_defines(pugi::xml_node& node, std::string& strError) {
     const auto& defines = node.children(pszDefine);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -157,7 +157,7 @@ bool UniqsProto::ReadProto_defines(pugi::xml_node& node, std::string& strError) 
     return true;
 }
 
-bool UniqsProto::ReadProto_structs(pugi::xml_node& node, std::string& strError) {
+bool UniqsModel::ReadProto_structs(pugi::xml_node& node, std::string& strError) {
     const auto& structs = node.children(pszStruct);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -203,7 +203,7 @@ bool UniqsProto::ReadProto_structs(pugi::xml_node& node, std::string& strError) 
     return true;
 }
 
-bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, Uniqs_Struct& rStruct, std::string& strError) {
+bool UniqsModel::ReadProto_struct_property(pugi::xml_node& node, Uniqs_Struct& rStruct, std::string& strError) {
     const auto& properties = node.children(pszProperty);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -276,7 +276,7 @@ bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, Uniqs_Struct& r
     return true;
 }
 
-bool UniqsProto::Check(std::string& strError) {
+bool UniqsModel::Check(std::string& strError) {
     if (!Check_defines(strError)) {
         return false;
     }
@@ -292,7 +292,7 @@ bool UniqsProto::Check(std::string& strError) {
     return true;
 }
 
-bool UniqsProto::Check_includes(std::string& strError) {
+bool UniqsModel::Check_includes(std::string& strError) {
     // for (auto it = vecIncludes.begin(); it != vecIncludes.end(); ++it)
     //{
     //	std::string strInclude = m_strPath + it->strName;
@@ -319,7 +319,7 @@ bool UniqsProto::Check_includes(std::string& strError) {
     return true;
 }
 
-bool UniqsProto::Check_defines(std::string& strError) {
+bool UniqsModel::Check_defines(std::string& strError) {
     //// 检查defines里面是否有重复
     // std::unordered_set<std::string> mapDefinesAll;
     // for (auto it = mapDefines.begin(); it != mapDefines.end(); ++it)
@@ -349,7 +349,7 @@ bool UniqsProto::Check_defines(std::string& strError) {
     return true;
 }
 
-bool UniqsProto::Check_structs(std::string& strError) {
+bool UniqsModel::Check_structs(std::string& strError) {
     // 检查structs里面是否有重复
     // 检查structs里面的property为自定义结构体的，是否已定义
     // 检查structs里面的property为数组或map结构体的，max是否为数值或者在defines中已定义

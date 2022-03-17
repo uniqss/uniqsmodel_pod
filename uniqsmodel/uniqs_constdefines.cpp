@@ -29,7 +29,7 @@ const char* pszNull = "null";
 
 const char* pszDefinePostfix = "Defines";
 
-// const std::wstring g_strFileDeclaration = L"// ########## 本文件为生成文件，不要手动修改！！！ ##########\n// ########## UniqsProto uniqs@163.com ##########";
-const std::string g_strFileDeclaration = "// ########## 本文件为生成文件，不要手动修改！！！ ##########\n// ########## UniqsProto uniqs@163.com ##########";
+// const std::wstring g_strFileDeclaration = L"// ########## 本文件为生成文件，不要手动修改！！！ ##########\n// ########## UniqsModel uniqs@163.com ##########";
+const std::string g_strFileDeclaration = "// ########## 本文件为生成文件，不要手动修改！！！ ##########\n// ########## UniqsModel uniqs@163.com ##########";
 
 const std::string g_strNamespace = "namespace UniqsModel";

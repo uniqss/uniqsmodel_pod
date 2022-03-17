@@ -2,7 +2,7 @@
 
 #include "stl.h"
 
-class UniqsProto;
+class UniqsModel;
 class Uniqs_Include {
    public:
     Uniqs_Include();

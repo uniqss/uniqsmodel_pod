@@ -1,6 +1,6 @@
 #include "stl.h"
 
-#include "uniqsproto.h"
+#include "uniqsmodel.h"
 
 #include "generator.h"
 
@@ -20,7 +20,7 @@ int main_logic(int argc, const char** argv) {
         return -5;
     }
 
-    UniqsProto proto;
+    UniqsModel proto;
 
     std::string strGenerateType = argv[1];
     std::string strPeerType = argv[2];
