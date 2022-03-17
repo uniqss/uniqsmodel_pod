@@ -6,14 +6,52 @@
 	<!-- defines就是CPP语言的#define，类似enum枚举，把一个字符串和一个int值对应，可以重复 -->
 	<defines>
 		<define name="E_MONEY_TYPE_NUM" value="10" description=""/>
+		<define name="NS_NAME_LEN" value="10" description=""/>
+		<define name="C_DESC_LEN" value="256" description="描述长度"/>
 	</defines>
 	<!-- 自定义结构体 -->
 	<structs>
+		<struct name="ACTOR_GUIDE" description="">
+			<property name="max_steps" type="int32" complex_type="rawarray" max="64" description="各分组内最大步骤"/>
+			<property name="reward_mask" type="int32" description="新手奖励领取mask"/>
+		</struct>
 		<struct name="ACTOR_COMMON" description="">
 			<property name="uid" type="uint64" description="玩家ID"/>
 			<property name="mid" type="uint64" description="内存ID"/>
 			<property name="first_inited" type="bool" description=""/>
-			<property name="name" type="string" description=""/>
+			<property name="name" type="string" max="NS_NAME_LEN" description=""/>
+			<property name="is_male" type="bool" description=""/>
+			<property name="level" type="int32" description=""/>
+			<property name="exp" type="int32" description=""/>
+			<property name="create_time" type="int32" description=""/>
+			<property name="create_ip" type="uint32" description=""/>
+			<property name="login_time" type="int32" description="上次登录时间"/>
+			<property name="count_login_time" type="int32" description="跨天后会更新的实际有效自然日登录时间"/>
+			<property name="logout_time" type="int32" description="上次登出时间，为0代表在线"/>
+			<property name="offline_duration" type="int32" description="离线时长"/>
+			<property name="block_end_time" type="int32" description="离线时长"/>
+			<property name="block_reason" type="string" max="C_DESC_LEN" description=""/>
+			<property name="avatar" type="int32" description=""/>
+			<property name="chat_bubble" type="int32" description=""/>
+			<property name="lang" type="int32" description=""/>
+			<property name="channel" type="int32" description=""/>
+			<property name="force" type="int32" description=""/>
+			<property name="init_hero" type="int32" description=""/>
+
+			<property name="last_refresh_ts" type="int32" description=""/>
+			<property name="refresh_timer_mid" type="uint64" description=""/>
+			<property name="seed" type="int32" description="daily change"/>
+			<property name="init_rand_val" type="int32" description="作为创建角色时随机的属性，用来做潜在用户分类。"/>
+
+			<property name="last_msg_ts" type="int32" description=""/>
+			<property name="login_days" type="int32" description="自然日"/>
+
+			<property name="guide" type="ACTOR_GUIDE" description=""/>
+			<property name="next_autoload_ts" type="int32" description=""/>
+			<property name="last_push_ts" type="int32" description=""/>
+
+			<property name="verfix_version" type="int32" description=""/>
+			<property name="verfix_data_version" type="int32" description=""/>
 		</struct>
 
 		<struct name="ACTOR_MONEY_RECOV" description="">
@@ -27,12 +65,35 @@
 			<property name="rmb_payed" type="int32" description=""/>
 			<property name="pay_jewl" type="int32" description="充值基础钻石"/>
 			<property name="present_jewl" type="int32" description="充值时赠送的钻石（首冲、礼包多余部分等）"/>
-			<property name="recov" type="ACTOR_MONEY_RECOV" description=""/>
+			
+			<property name="recov" type="ACTOR_MONEY_RECOV" complex_type="rawarray" max="E_MONEY_TYPE_NUM" description=""/>
+		</struct>
+		
+		<struct name="VIP_MGR" description="">
+			<property name="lvl" type="int32" description=""/>
+			<property name="exp" type="int32" description=""/>
+			<property name="gift_mask" type="int8" complex_type="rawarray" max="16" description=""/>
 		</struct>
 		
 		<struct name="WORLD_ACTOR" description="玩家类">
 			<property name="actor_common" type="ACTOR_COMMON" description=""/>
 			<property name="money" type="ACTOR_MONEY" description=""/>
+			<property name="vip_mgr" type="VIP_MGR" description=""/>
 		</struct>
+		
+		<subset name="WORLD_ACTOR_BRIEF" base="WORLD_ACTOR" description="玩家基本信息类，其别人查看、可离线查看">
+			<!-- 这些注释都有待优化，这里面只准注释与 base 中有区别的或者需要特殊对待的数据 -->
+			<property ref="actor_common.uid" description=""/>
+			<property ref="actor_common.create_time" description=""/>
+			<property ref="actor_common.name" description=""/>
+			<property ref="actor_common.level" description=""/>
+			<property ref="actor_common.exp" description=""/>
+			<property ref="actor_common.lang" description=""/>
+			<property name="vip_level" ref="vip_mgr.lvl" description=""/>
+			<property ref="actor_common.login_time" description="上次登录时间"/>
+			<property ref="actor_common.logout_time" description="上次登出时间，为0代表还在线"/>
+			<property ref="actor_common.count_login_time" description="计入登录的时间，若连续登录跨天此值会在跨天时更新，也用来统计下面的total_login_days"/>
+			<property name="total_login_days" ref="actor_common.login_days" description="累计登录天数（自然日）"/>
+		</subset>
 	</structs>
 </uniqsproto>

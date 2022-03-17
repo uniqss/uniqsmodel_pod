@@ -1,4 +1,5 @@
 #include "typeparser.h"
+#include "uniqsproto_struct_property.h"
 
 std::unordered_map<string, EUniqsRawType> TypeParser::m_mapRawTypes;
 std::unordered_map<string, EUniqsComplexType> TypeParser::m_mapComplexTypes;
@@ -42,4 +43,16 @@ TypeParser::TypeParser() {
         m_mapComplexTypes["rawarray"] = EUniqsComplexType_rawarray;
         m_mapComplexTypes["array"] = EUniqsComplexType_array;
     }
+}
+
+bool TypeParser::IsRawValueType(const UniqsProto_StructProperty& prop) {
+    return prop.eValueType > EUniqsRawType_invalid && prop.eValueType < EUniqsRawType_max;
+}
+
+bool TypeParser::IsComplexType(const UniqsProto_StructProperty& prop) {
+    return prop.eComplexType > EUniqsComplexType_invalid && prop.eComplexType < EUniqsComplexType_max;
+}
+
+bool TypeParser::IsRawKeyType(const UniqsProto_StructProperty& prop) {
+    return prop.eKeyType > EUniqsRawType_invalid && prop.eKeyType < EUniqsRawType_max;
 }

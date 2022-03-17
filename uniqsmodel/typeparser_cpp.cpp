@@ -1,8 +1,9 @@
 #include "typeparser_cpp.h"
+#include "uniqsproto_struct_property.h"
 
 const char* pszRawTypeSpecific_cpp[] = {
     // clang-format off
-	"invalid",
+	"invalid_pszRawTypeSpecific_cpp_1",
 	"bool",
 	"char",
 	"unsigned char",
@@ -13,31 +14,34 @@ const char* pszRawTypeSpecific_cpp[] = {
 	"int64_t",
 	"uint64_t",
 	"std::string",
-	"invalid"
+	"invalid_pszRawTypeSpecific_cpp_2"
     // clang-format on
 };
 const char* TypeParser_cpp::GetRawTypeSpecific(EUniqsRawType eType) {
     return pszRawTypeSpecific_cpp[eType];
 }
 
-std::string TypeParser_cpp::FormComplexStructMember(EUniqsComplexType eComplexType, EUniqsRawType eRawType, const std::string& strPropName,
-                                                    const std::string& strMax) {
-    const char* rawTypeSpecific = GetRawTypeSpecific(eRawType);
-    if (eComplexType == EUniqsComplexType_array) {
-        return std::string("std::vector<") + rawTypeSpecific + "> " + strPropName;
-    } else if (eComplexType == EUniqsComplexType_rawarray) {
-        return std::string(rawTypeSpecific) + " " + strPropName + "[" + strMax + "]";
-    }
+std::string TypeParser_cpp::FormComplexStructMember(const UniqsProto_StructProperty& prop) {
+    if (IsRawValueType(prop)) {
+        const char* rawTypeSpecific = GetRawTypeSpecific(prop.eValueType);
+        if (prop.eComplexType == EUniqsComplexType_array) {
+            return std::string("std::vector<") + rawTypeSpecific + "> " + prop.strName;
+        } else if (prop.eComplexType == EUniqsComplexType_rawarray) {
+            return std::string(rawTypeSpecific) + " " + prop.strName + "[" + prop.strMax + "]";
+        }
+    } else {
+
+	}
 
     return "";
 }
 
-std::string TypeParser_cpp::FormComplexStructMemberClear(EUniqsComplexType eComplexType, EUniqsRawType eRawType, const std::string& strPropName,
-                                                    const std::string& strMax) {
+std::string TypeParser_cpp::FormComplexStructMemberClear(EUniqsComplexType eComplexType, EUniqsRawType eValueType, const std::string& strPropName,
+                                                         const std::string& strMax) {
     if (eComplexType == EUniqsComplexType_array) {
-		return strPropName + ".clear();";
+        return strPropName + ".clear();";
     } else if (eComplexType == EUniqsComplexType_rawarray) {
-		return std::string("memset(") + strPropName + ", 0, sizeof(" + strPropName + "));";
+        return std::string("memset(") + strPropName + ", 0, sizeof(" + strPropName + "));";
     }
 
     return "";
@@ -46,10 +50,10 @@ std::string TypeParser_cpp::FormComplexStructMemberClear(EUniqsComplexType eComp
 
 const char* pszComplexTypeSpecific_cpp[] = {
     // clang-format off
-	"invalid",
+	"invalid_pszComplexTypeSpecific_cpp_1",
 	"std::vector<",
 	"std::vector<",
-	"invalid"
+	"invalid_pszComplexTypeSpecific_cpp_2"
     // clang-format on
 };
 const char* TypeParser_cpp::GetComplexTypeSpecific(EUniqsComplexType eType) {
@@ -58,7 +62,7 @@ const char* TypeParser_cpp::GetComplexTypeSpecific(EUniqsComplexType eType) {
 
 const char* pszDefaultValueSpecific_cpp[] = {
     // clang-format off
-	"invalid",
+	"invalid_pszDefaultValueSpecific_cpp_1",
 	"false",
 	"0",
 	"0",
@@ -69,7 +73,7 @@ const char* pszDefaultValueSpecific_cpp[] = {
 	"0",
 	"0",
 	"\"\"",
-	"invalid"
+	"invalid_pszDefaultValueSpecific_cpp_2"
     // clang-format on
 };
 const char* TypeParser_cpp::GetDefaultValueSpecific(EUniqsRawType eType) {

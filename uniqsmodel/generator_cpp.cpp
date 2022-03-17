@@ -112,10 +112,10 @@ bool Generator_cpp::_GenerateStructs_header(UniqsProto &proto, const string &str
         std::unordered_set<std::string> strIncludeAvoidSame;
         std::vector<std::string> vecIncludes;
         for (const auto &prop : it.vecProperties) {
-            if (!g_pTypeParser->IsRawType(prop.eRawType)) {
-                if (strIncludeAvoidSame.find(prop.strType) == strIncludeAvoidSame.end()) {
-                    strIncludeAvoidSame.insert(prop.strType);
-                    vecIncludes.emplace_back(prop.strType);
+            if (!g_pTypeParser->IsRawValueType(prop)) {
+                if (strIncludeAvoidSame.find(prop.strValueType) == strIncludeAvoidSame.end()) {
+                    strIncludeAvoidSame.insert(prop.strValueType);
+                    vecIncludes.emplace_back(prop.strValueType);
                 }
             } else {
                 haveComplexType = true;
@@ -149,13 +149,13 @@ bool Generator_cpp::_GenerateStructs_header(UniqsProto &proto, const string &str
 
         for (const auto &prop : it.vecProperties) {
             ofs << indent << "// " << prop.strDescription << endl;
-            if (g_pTypeParser->IsComplexType(prop.eComplexType)) {
-                ofs << indent << g_pTypeParser->FormComplexStructMember(prop.eComplexType, prop.eRawType, prop.strName, prop.strMax) << ";" << endl;
-            } else if (g_pTypeParser->IsRawType(prop.eRawType)) {
-                ofs << indent << g_pTypeParser->GetRawTypeSpecific(prop.eRawType);
+            if (g_pTypeParser->IsComplexType(prop)) {
+                ofs << indent << g_pTypeParser->FormComplexStructMember(prop) << ";" << endl;
+            } else if (g_pTypeParser->IsRawValueType(prop)) {
+                ofs << indent << g_pTypeParser->GetRawTypeSpecific(prop.eValueType);
                 ofs << " " << prop.strName << ";" << endl;
             } else {
-                ofs << indent << prop.strType;
+                ofs << indent << prop.strValueType;
                 ofs << " " << prop.strName << ";" << endl;
             }
         }
@@ -213,7 +213,7 @@ bool Generator_cpp::_GenerateStructs_source(UniqsProto &proto, const string &str
         LEFT_BRACE;
         for (const auto &prop : it.vecProperties) {
             ofs << indent << "// serialize " << prop.strDescription << endl;
-            if (g_pTypeParser->IsComplexType(prop.eComplexType)) {
+            if (g_pTypeParser->IsComplexType(prop)) {
                 ofs << indent << "" << GetComplexLenType() << " wLen_" << prop.strName << " = " << prop.strName << ".size() < " << prop.strMax << " ?"
                     << " (" << GetComplexLenType() << ")" << prop.strName << ".size() : (" << GetComplexLenType() << ")" << prop.strMax << "; " << endl;
                 ofs << indent << "if (!Serialize_RawType(pszMsgData, Index, Length, wLen_" << prop.strName << "))" << endl;
@@ -224,7 +224,7 @@ bool Generator_cpp::_GenerateStructs_source(UniqsProto &proto, const string &str
                 if (prop.eComplexType == EUniqsComplexType_array) {
                     ofs << indent << "for (int nIdx = 0; nIdx < " << prop.strName << ".size() && nIdx < " << prop.strMax << "; ++nIdx)" << endl;
                     LEFT_BRACE;
-                    if (g_pTypeParser->IsRawType(prop.eRawType)) {
+                    if (g_pTypeParser->IsRawValueType(prop)) {
                         ofs << indent << "if (!Serialize_RawType(pszMsgData, Index, Length, " << prop.strName << "[nIdx]))" << endl;
                     } else {
                         ofs << indent << "if (!" << prop.strName << "[nIdx].Serialize_impl(pszMsgData, Index, Length))" << endl;
@@ -236,7 +236,7 @@ bool Generator_cpp::_GenerateStructs_source(UniqsProto &proto, const string &str
 
                     RIGHT_BRACE;
                 }
-            } else if (g_pTypeParser->IsRawType(prop.eRawType)) {
+            } else if (g_pTypeParser->IsRawValueType(prop)) {
                 ofs << indent << "if (!Serialize_RawType(pszMsgData, Index, Length, " << prop.strName << "))" << endl;
                 LEFT_BRACE;
                 ofs << indent << "return false;" << endl;
@@ -262,7 +262,7 @@ bool Generator_cpp::_GenerateStructs_source(UniqsProto &proto, const string &str
         LEFT_BRACE;
         for (const auto &prop : it.vecProperties) {
             ofs << indent << "// deserialize " << prop.strDescription << endl;
-            if (g_pTypeParser->IsComplexType(prop.eComplexType)) {
+            if (g_pTypeParser->IsComplexType(prop)) {
                 ofs << indent << GetComplexLenType() << " wLen_" << prop.strName << " = 0;" << endl;
                 ofs << indent << "if (!DeSerialize_RawType(pszMsgData, Index, Length, wLen_" << prop.strName << "))" << endl;
                 LEFT_BRACE;
@@ -276,12 +276,12 @@ bool Generator_cpp::_GenerateStructs_source(UniqsProto &proto, const string &str
                 if (prop.eComplexType == EUniqsComplexType_array) {
                     ofs << indent << "for (int nIdx = 0; nIdx < wLen_" << prop.strName << "; ++nIdx)" << endl;
                     LEFT_BRACE;
-                    if (g_pTypeParser->IsRawType(prop.eRawType)) {
-                        ofs << indent << g_pTypeParser->GetRawTypeSpecific(prop.eRawType) << " oTmp = " << g_pTypeParser->GetDefaultValueSpecific(prop.eRawType)
+                    if (g_pTypeParser->IsRawValueType(prop)) {
+                        ofs << indent << g_pTypeParser->GetRawTypeSpecific(prop.eValueType) << " oTmp = " << g_pTypeParser->GetDefaultValueSpecific(prop.eValueType)
                             << ";" << endl;
                         ofs << indent << "if (!DeSerialize_RawType(pszMsgData, Index, Length, oTmp))" << endl;
                     } else {
-                        ofs << indent << prop.strType << " oTmp;" << endl;
+                        ofs << indent << prop.strValueType << " oTmp;" << endl;
                         ofs << indent << "if (!oTmp.DeSerialize_impl(pszMsgData, Index, Length))" << endl;
                     }
 
@@ -292,7 +292,7 @@ bool Generator_cpp::_GenerateStructs_source(UniqsProto &proto, const string &str
 
                     RIGHT_BRACE;
                 }
-            } else if (g_pTypeParser->IsRawType(prop.eRawType)) {
+            } else if (g_pTypeParser->IsRawValueType(prop)) {
                 ofs << indent << "if (!DeSerialize_RawType(pszMsgData, Index, Length, " << prop.strName << "))" << endl;
                 LEFT_BRACE;
                 ofs << indent << "return false;" << endl;

@@ -234,9 +234,9 @@ bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, UniqsProto_Stru
             return false;
         }
 
-        oProperty.strType = it->attribute(pszType).as_string();
+        oProperty.strValueType = it->attribute(pszType).as_string();
 
-        g_pTypeParser->ParseRawType(oProperty.strType, oProperty.eRawType);
+        g_pTypeParser->ParseRawType(oProperty.strValueType, oProperty.eValueType);
 
         oProperty.strComplexType = it->attribute(pszComplexType).as_string();
 
@@ -251,7 +251,7 @@ bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, UniqsProto_Stru
         }
 
         oProperty.strMax = it->attribute(pszMax).as_string();
-        if (g_pTypeParser->IsComplexType(oProperty.eComplexType) && oProperty.strMax.empty()) {
+        if (g_pTypeParser->IsComplexType(oProperty) && oProperty.strMax.empty()) {
             strError = pszProperty;
             strError += " ";
             strError += pszMax;
@@ -262,7 +262,7 @@ bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, UniqsProto_Stru
         }
         oProperty.strKey = it->attribute(pszKey).as_string();
         oProperty.strKeyType = it->attribute(pszKeyType).as_string();
-        if (g_pTypeParser->IsComplexType(oProperty.eComplexType) /*&& !g_pTypeParser->IsRawType(oProperty.eRawType)*/) {
+        if (g_pTypeParser->IsComplexType(oProperty) /*&& !g_pTypeParser->IsRawValueType(oProperty)*/) {
         }
 
         oProperty.strDescription = it->attribute(pszDescription).as_string();
