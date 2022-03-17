@@ -10,8 +10,12 @@ class Uniqs_Struct {
     std::vector<Uniqs_StructProperty> vecProperties;
     std::unordered_map<std::string, int> mapProperties;
 
+    std::vector<std::string> vecSubsets;
+    std::unordered_map<std::string, int> mapSubsets;
+
    public:
     std::string strName;
+    std::string strBaseName;
     bool bSingleton;
     std::string strDescription;
 };

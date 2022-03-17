@@ -11,13 +11,13 @@
 class UniqsModel {
    public:
     // 从配置的xml里面读取各部分的内容
-    bool ReadProto(const std::string& strFrom, std::string& strError);
+    bool ReadDef(const std::string& strFrom, std::string& strError);
 
    private:
-    bool ReadProto_includes(pugi::xml_node& node, std::string& strError);
-    bool ReadProto_defines(pugi::xml_node& node, std::string& strError);
-    bool ReadProto_structs(pugi::xml_node& node, std::string& strError);
-    bool ReadProto_struct_property(pugi::xml_node& node, Uniqs_Struct& rStruct, std::string& strError);
+    bool ReadDef_includes(pugi::xml_node& node, std::string& strError);
+    bool ReadDef_defines(pugi::xml_node& node, std::string& strError);
+    bool ReadDef_structs(pugi::xml_node& node, std::string& strError);
+    bool ReadDef_struct_property(pugi::xml_node& node, Uniqs_Struct& rStruct, std::string& strError);
 
    public:
     // 判定配置是否正确，比如包含的结构体是否有定义、包含的define是否有定义等逻辑

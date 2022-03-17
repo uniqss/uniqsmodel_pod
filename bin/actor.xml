@@ -81,7 +81,7 @@
 			<property name="vip_mgr" type="VIP_MGR" description=""/>
 		</struct>
 		
-		<subset name="WORLD_ACTOR_BRIEF" base="WORLD_ACTOR" description="玩家基本信息类，其别人查看、可离线查看">
+		<subset name="WORLD_ACTOR_BRIEF" base="WORLD_ACTOR" description="玩家基本信息类，其他人查看、可离线查看">
 			<!-- 这些注释都有待优化，这里面只准注释与 base 中有区别的或者需要特殊对待的数据 -->
 			<property ref="actor_common.uid" description=""/>
 			<property ref="actor_common.create_time" description=""/>

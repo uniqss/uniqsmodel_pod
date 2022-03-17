@@ -10,6 +10,9 @@ class Uniqs_StructProperty {
    public:
     std::string strName;
 
+    std::string strRefs;
+    std::vector<std::string> vecRefs;
+
     std::string strValueType;
     EUniqsRawType eValueType;
     std::string strComplexType;

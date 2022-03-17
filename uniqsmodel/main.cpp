@@ -59,7 +59,7 @@ int main_logic(int argc, const char** argv) {
 
     std::string strError;
     bool bRet = false;
-    bRet = proto.ReadProto(strFrom, strError);
+    bRet = proto.ReadDef(strFrom, strError);
     if (!bRet) {
         std::cout << strError << std::endl;
         return -1;

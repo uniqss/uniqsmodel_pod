@@ -6,7 +6,7 @@
 
 #include "typeparser.h"
 
-bool UniqsModel::ReadProto(const std::string& strFrom, std::string& strError) {
+bool UniqsModel::ReadDef(const std::string& strFrom, std::string& strError) {
     pugi::xml_parse_result result = m_doc.load_file(strFrom.c_str());
 
     if (!result) {
@@ -41,21 +41,21 @@ bool UniqsModel::ReadProto(const std::string& strFrom, std::string& strError) {
 
     pugi::xml_node includes = uniqsproto.child(pszIncludes);
     if (includes) {
-        if (!ReadProto_includes(includes, strError)) {
+        if (!ReadDef_includes(includes, strError)) {
             return false;
         }
     }
 
     pugi::xml_node defines = uniqsproto.child(pszDefines);
     if (defines) {
-        if (!ReadProto_defines(defines, strError)) {
+        if (!ReadDef_defines(defines, strError)) {
             return false;
         }
     }
 
     pugi::xml_node structs = uniqsproto.child(pszStructs);
     if (structs) {
-        if (!ReadProto_structs(structs, strError)) {
+        if (!ReadDef_structs(structs, strError)) {
             return false;
         }
     }
@@ -76,7 +76,7 @@ bool UniqsModel::ReadProto(const std::string& strFrom, std::string& strError) {
     return true;
 }
 
-bool UniqsModel::ReadProto_includes(pugi::xml_node& node, std::string& strError) {
+bool UniqsModel::ReadDef_includes(pugi::xml_node& node, std::string& strError) {
     const auto& includes = node.children(pszInclude);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -115,7 +115,7 @@ bool UniqsModel::ReadProto_includes(pugi::xml_node& node, std::string& strError)
     return true;
 }
 
-bool UniqsModel::ReadProto_defines(pugi::xml_node& node, std::string& strError) {
+bool UniqsModel::ReadDef_defines(pugi::xml_node& node, std::string& strError) {
     const auto& defines = node.children(pszDefine);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -157,7 +157,7 @@ bool UniqsModel::ReadProto_defines(pugi::xml_node& node, std::string& strError) 
     return true;
 }
 
-bool UniqsModel::ReadProto_structs(pugi::xml_node& node, std::string& strError) {
+bool UniqsModel::ReadDef_structs(pugi::xml_node& node, std::string& strError) {
     const auto& structs = node.children(pszStruct);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -189,7 +189,7 @@ bool UniqsModel::ReadProto_structs(pugi::xml_node& node, std::string& strError) 
 
         oStruct.bSingleton = it->attribute(pszSingleton).as_bool(false);
 
-        if (!ReadProto_struct_property(*it, oStruct, strError)) {
+        if (!ReadDef_struct_property(*it, oStruct, strError)) {
             return false;
         }
 
@@ -203,7 +203,7 @@ bool UniqsModel::ReadProto_structs(pugi::xml_node& node, std::string& strError) 
     return true;
 }
 
-bool UniqsModel::ReadProto_struct_property(pugi::xml_node& node, Uniqs_Struct& rStruct, std::string& strError) {
+bool UniqsModel::ReadDef_struct_property(pugi::xml_node& node, Uniqs_Struct& rStruct, std::string& strError) {
     const auto& properties = node.children(pszProperty);
     std::string strPrevElement = "";
     int nIdx = 0;
@@ -222,11 +222,17 @@ bool UniqsModel::ReadProto_struct_property(pugi::xml_node& node, Uniqs_Struct& r
             }
             return false;
         }
-        if (rStruct.mapProperties.find(oProperty.strName) != rStruct.mapProperties.end()) {
-            strError = pszProperty;
+
+        auto it_property = rStruct.mapProperties.find(oProperty.strName);
+        if (it_property != rStruct.mapProperties.end()) {
+            strError = "struct " + rStruct.strName;
+            strError += " property:";
+            strError += pszProperty;
             strError += " ";
             strError += oProperty.strName;
             strError += " duplicated.";
+            strError += "nIdx:" + std::to_string(nIdx);
+            strError += " lastIdx:" + std::to_string(it_property->second);
             if (!strPrevElement.empty()) {
                 strError += "prev element:";
                 strError += strPrevElement;
@@ -306,7 +312,7 @@ bool UniqsModel::Check_includes(std::string& strError) {
     //		return false;
     //	}
     //	it->ConstructUniqsProto();
-    //	if (!it->proto->ReadProto(strInclude, strError))
+    //	if (!it->proto->ReadDef(strInclude, strError))
     //	{
     //		return false;
     //	}
