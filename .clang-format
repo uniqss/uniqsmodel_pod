@@ -1,0 +1,15 @@
+---
+BasedOnStyle: Google
+AllowShortFunctionsOnASingleLine: Inline
+BreakBeforeBraces: Custom
+ColumnLimit: '165'
+ConstructorInitializerIndentWidth: '4'
+ContinuationIndentWidth: '4'
+IndentCaseLabels: 'false'
+IndentWidth: '4'
+MaxEmptyLinesToKeep: '3'
+ObjCBlockIndentWidth: '4'
+SortIncludes: 'false'
+SortUsingDeclarations: 'false'
+TabWidth: '4'
+UseTab: Never

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="pugixml.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="uniqsproto.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="uniqsproto_struct.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="uniqsproto_include.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="uniqsproto_define.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="uniqsproto_struct_property.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator_cpp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator_csharp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="uniqsproto_constdefines.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="indent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="typeparser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="typeparser_cpp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="typeparser_csharp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="typeparser_tolua.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator_tolua.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator_tolua_allocator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator_tolua_structs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator_tolua_tolua.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="generator_tolua_pb.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pugiconfig.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pugixml.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqsproto.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqsproto_struct.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqsproto_types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqsproto_include.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqsproto_define.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqsproto_struct_property.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uniqsproto_constdefines.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="generator_cpp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="generator_csharp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="generator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="indent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="typeparser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="typeparser_cpp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="typeparser_csharp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="typeparser_tolua.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="generator_tolua.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
