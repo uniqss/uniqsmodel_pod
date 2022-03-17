@@ -5,9 +5,7 @@
 #include "generator.h"
 
 #include "typeparser_cpp.h"
-#include "typeparser_cpp_shm.h"
-#include "typeparser_csharp.h"
-#include "typeparser_tolua.h"
+#include "generator_cpp.h"
 
 #include "stl.h"
 using namespace std;
@@ -26,27 +24,13 @@ int main_logic(int argc, const char** argv) {
 
     std::string strGenerateType = argv[1];
     std::string strPeerType = argv[2];
-    EGenerateType eGenerateType;
+
     TypeParser_cpp oTypeParser_cpp;
-    TypeParser_cpp_shm oTypeParser_cpp_shm;
-    TypeParser_csharp oTypeParser_csharp;
-    TypeParser_tolua oTypeParser_tolua;
+    Generator_cpp oGenerator_cpp;
+    
     if (strGenerateType == "cpp") {
-        eGenerateType = EGenerateType_cpp;
-
+        g_pGenerator = &oGenerator_cpp;
         g_pTypeParser = &oTypeParser_cpp;
-    } else if (strGenerateType == "cpp_shm") {
-        eGenerateType = EGenerateType_cpp_shm;
-
-        g_pTypeParser = &oTypeParser_cpp_shm;
-    } else if (strGenerateType == "csharp") {
-        eGenerateType = EGenerateType_csharp;
-
-        g_pTypeParser = &oTypeParser_csharp;
-    } else if (strGenerateType == "tolua") {
-        eGenerateType = EGenerateType_tolua;
-
-        g_pTypeParser = &oTypeParser_tolua;
     } else {
         help();
         return -4;
@@ -88,8 +72,7 @@ int main_logic(int argc, const char** argv) {
     }
 
     // 先不check了，只管生成，只管序列化和反序列化，后面再优化
-    Generator oGenerator;
-    if (!oGenerator.Generate(eGenerateType, proto, strTo, strPBTo, strError)) {
+    if (!g_pGenerator->Generate(proto, strTo, strPBTo, strError)) {
         std::cout << strError << std::endl;
         return -2;
     }

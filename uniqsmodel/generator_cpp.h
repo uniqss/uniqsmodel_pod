@@ -4,11 +4,7 @@
 
 class Generator_cpp : public Generator {
    public:
-    Generator_cpp();
-    virtual ~Generator_cpp() {}
-
-   public:
-    virtual bool Generate_i(UniqsProto& proto, const string& strTo, const string& strPBTo, std::string& strError);
+    virtual bool Generate(UniqsProto& proto, const string& strTo, const string& strPBTo, std::string& strError);
     virtual const string& GetComplexLenType() {
         static string strComplexLenType = "unsigned short";
         return strComplexLenType;

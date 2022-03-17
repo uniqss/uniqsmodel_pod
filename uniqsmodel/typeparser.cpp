@@ -39,7 +39,7 @@ TypeParser::TypeParser() {
     }
 
     if (m_mapComplexTypes.empty()) {
+        m_mapComplexTypes["rawarray"] = EUniqsComplexType_rawarray;
         m_mapComplexTypes["array"] = EUniqsComplexType_array;
-        m_mapComplexTypes["map"] = EUniqsComplexType_map;
     }
 }

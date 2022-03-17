@@ -1,1 +1,1 @@
-g++ -g ./*.cpp -o ../bin/uniqsmodel
+g++ -g -Wall ./*.cpp -o ../bin/uniqsmodel

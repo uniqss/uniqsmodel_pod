@@ -17,7 +17,8 @@ enum EUniqsRawType {
 
 enum EUniqsComplexType {
     EUniqsComplexType_invalid,
+    EUniqsComplexType_rawarray, //原始数组
     EUniqsComplexType_array,
-    EUniqsComplexType_map,
+    // EUniqsComplexType_map, // pod不支持map
     EUniqsComplexType_max,
 };

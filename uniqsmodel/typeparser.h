@@ -22,6 +22,10 @@ class TypeParser {
 
    public:
     virtual const char* GetRawTypeSpecific(EUniqsRawType eType) = 0;
+    virtual std::string FormComplexStructMember(EUniqsComplexType eComplexType, EUniqsRawType eRawType, const std::string& strPropName,
+                                                const std::string& strMax) = 0;
+    virtual std::string FormComplexStructMemberClear(EUniqsComplexType eComplexType, EUniqsRawType eRawType, const std::string& strPropName,
+                                                     const std::string& strMax) = 0;
     virtual const char* GetComplexTypeSpecific(EUniqsComplexType eType) = 0;
     virtual const char* GetDefaultValueSpecific(EUniqsRawType eType) = 0;
 };

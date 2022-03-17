@@ -8,14 +8,6 @@
 #include "pugiconfig.hpp"
 #include "pugixml.hpp"
 
-
-enum EGenerateType {
-    EGenerateType_cpp,
-    EGenerateType_cpp_shm,
-    EGenerateType_csharp,
-    EGenerateType_tolua,
-};
-
 class UniqsProto {
    public:
     // 从配置的xml里面读取各部分的内容

@@ -263,28 +263,6 @@ bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, UniqsProto_Stru
         oProperty.strKey = it->attribute(pszKey).as_string();
         oProperty.strKeyType = it->attribute(pszKeyType).as_string();
         if (g_pTypeParser->IsComplexType(oProperty.eComplexType) /*&& !g_pTypeParser->IsRawType(oProperty.eRawType)*/) {
-            if (oProperty.eComplexType == EUniqsComplexType_map) {
-                if (oProperty.strKeyType.empty()) {
-                    strError = pszProperty;
-                    strError += " ";
-                    strError += pszMax;
-                    strError += " parse error. structs.struct.property type with complextype [map] must have attribute [";
-                    strError += pszKeyType;
-                    strError += "]. ";
-                    strError += " prev element:";
-                    strError += strPrevElement;
-                    return false;
-                }
-                if (!g_pTypeParser->ParseRawType(oProperty.strKeyType, oProperty.eRawType_KeyType)) {
-                    strError = pszProperty;
-                    strError += " ";
-                    strError += pszMax;
-                    strError += " parse error. structs.struct.property type with complextype [map] must make sure [key_type] is raw types. ";
-                    strError += " prev element:";
-                    strError += strPrevElement;
-                    return false;
-                }
-            }
         }
 
         oProperty.strDescription = it->attribute(pszDescription).as_string();
