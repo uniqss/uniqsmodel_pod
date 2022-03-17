@@ -81,19 +81,19 @@
 			<property name="vip_mgr" type="VIP_MGR" description=""/>
 		</struct>
 		
-		<subset name="WORLD_ACTOR_BRIEF" base="WORLD_ACTOR" description="玩家基本信息类，其他人查看、可离线查看">
+		<struct name="WORLD_ACTOR_BRIEF" description="玩家基本信息类，其他人查看、可离线查看">
 			<!-- 这些注释都有待优化，这里面只准注释与 base 中有区别的或者需要特殊对待的数据 -->
-			<property ref="actor_common.uid" description=""/>
-			<property ref="actor_common.create_time" description=""/>
-			<property ref="actor_common.name" description=""/>
-			<property ref="actor_common.level" description=""/>
-			<property ref="actor_common.exp" description=""/>
-			<property ref="actor_common.lang" description=""/>
-			<property name="vip_level" ref="vip_mgr.lvl" description=""/>
-			<property ref="actor_common.login_time" description="上次登录时间"/>
-			<property ref="actor_common.logout_time" description="上次登出时间，为0代表还在线"/>
-			<property ref="actor_common.count_login_time" description="计入登录的时间，若连续登录跨天此值会在跨天时更新，也用来统计下面的total_login_days"/>
-			<property name="total_login_days" ref="actor_common.login_days" description="累计登录天数（自然日）"/>
-		</subset>
+			<property ref="WORLD_ACTOR.actor_common.uid" description=""/>
+			<property ref="WORLD_ACTOR.actor_common.create_time" description=""/>
+			<property ref="WORLD_ACTOR.actor_common.name" description=""/>
+			<property ref="WORLD_ACTOR.actor_common.level" description=""/>
+			<property ref="WORLD_ACTOR.actor_common.exp" description=""/>
+			<property ref="WORLD_ACTOR.actor_common.lang" description=""/>
+			<property name="vip_level" ref="WORLD_ACTOR.vip_mgr.lvl" description=""/>
+			<property ref="WORLD_ACTOR.actor_common.login_time" description="上次登录时间"/>
+			<property ref="WORLD_ACTOR.actor_common.logout_time" description="上次登出时间，为0代表还在线"/>
+			<property ref="WORLD_ACTOR.actor_common.count_login_time" description="计入登录的时间，若连续登录跨天此值会在跨天时更新，也用来统计下面的total_login_days"/>
+			<property name="total_login_days" ref="WORLD_ACTOR.actor_common.login_days" description="累计登录天数（自然日）"/>
+		</struct>
 	</structs>
 </uniqsproto>

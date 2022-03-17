@@ -175,6 +175,7 @@ bool UniqsModel::ReadDef_structs(pugi::xml_node& node, std::string& strError) {
             }
             return false;
         }
+
         if (mapStructs.find(oStruct.strName) != mapStructs.end()) {
             strError = pszStruct;
             strError += " ";
@@ -210,12 +211,16 @@ bool UniqsModel::ReadDef_struct_property(pugi::xml_node& node, Uniqs_Struct& rSt
     for (auto it = properties.begin(); it != properties.end(); ++it) {
         Uniqs_StructProperty oProperty;
 
+        oProperty.strRefs = it->attribute(pszRef).as_string();
+
+        bool bRef = !oProperty.strRefs.empty();
+
         oProperty.strName = it->attribute(pszName).as_string();
-        if (oProperty.strName.empty()) {
+        if (!bRef && oProperty.strName.empty()) {
             strError = pszProperty;
             strError += " ";
             strError += pszName;
-            strError += " attribute not found.";
+            strError += " attribute not found. only ref properties don't need name";
             if (!strPrevElement.empty()) {
                 strError += " prev element:";
                 strError += strPrevElement;

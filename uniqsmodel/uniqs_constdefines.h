@@ -3,6 +3,7 @@
 #include "stl.h"
 
 extern const char* pszName;
+extern const char* pszRef;
 extern const char* pszHead;
 extern const char* pszDescription;
 

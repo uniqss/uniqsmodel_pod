@@ -3,6 +3,7 @@
 #include "stl.h"
 
 const char* pszName = "name";
+const char* pszRef = "ref";
 const char* pszHead = "head";
 const char* pszDescription = "description";
 
