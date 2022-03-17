@@ -2,7 +2,7 @@
 
 #include "generator_cpp.h"
 
-#include "uniqsproto_constdefines.h"
+#include "uniqs_constdefines.h"
 
 #include "stl.h"
 using namespace std;

@@ -1,11 +1,11 @@
 #pragma once
 
 #include "stl.h"
-#include "uniqsproto_types.h"
+#include "uniqs_types.h"
 
-class UniqsProto_StructProperty {
+class Uniqs_StructProperty {
    public:
-    UniqsProto_StructProperty();
+    Uniqs_StructProperty();
 
    public:
     std::string strName;

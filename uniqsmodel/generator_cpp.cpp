@@ -2,7 +2,7 @@
 
 #include "stl.h"
 
-#include "uniqsproto_constdefines.h"
+#include "uniqs_constdefines.h"
 #include "indent.h"
 
 #include "typeparser.h"

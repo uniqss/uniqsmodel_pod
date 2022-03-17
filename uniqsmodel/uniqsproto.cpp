@@ -2,7 +2,7 @@
 
 #include "stl.h"
 
-#include "uniqsproto_constdefines.h"
+#include "uniqs_constdefines.h"
 
 #include "typeparser.h"
 
@@ -81,7 +81,7 @@ bool UniqsProto::ReadProto_includes(pugi::xml_node& node, std::string& strError)
     std::string strPrevElement = "";
     int nIdx = 0;
     for (auto it = includes.begin(); it != includes.end(); ++it) {
-        UniqsProto_Include oInclude;
+        Uniqs_Include oInclude;
         oInclude.strName = it->attribute(pszName).as_string();
         if (oInclude.strName.empty()) {
             strError = pszInclude;
@@ -162,7 +162,7 @@ bool UniqsProto::ReadProto_structs(pugi::xml_node& node, std::string& strError) 
     std::string strPrevElement = "";
     int nIdx = 0;
     for (auto it = structs.begin(); it != structs.end(); ++it) {
-        UniqsProto_Struct oStruct;
+        Uniqs_Struct oStruct;
         oStruct.strName = it->attribute(pszName).as_string();
         if (oStruct.strName.empty()) {
             strError = pszStruct;
@@ -203,12 +203,12 @@ bool UniqsProto::ReadProto_structs(pugi::xml_node& node, std::string& strError) 
     return true;
 }
 
-bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, UniqsProto_Struct& rStruct, std::string& strError) {
+bool UniqsProto::ReadProto_struct_property(pugi::xml_node& node, Uniqs_Struct& rStruct, std::string& strError) {
     const auto& properties = node.children(pszProperty);
     std::string strPrevElement = "";
     int nIdx = 0;
     for (auto it = properties.begin(); it != properties.end(); ++it) {
-        UniqsProto_StructProperty oProperty;
+        Uniqs_StructProperty oProperty;
 
         oProperty.strName = it->attribute(pszName).as_string();
         if (oProperty.strName.empty()) {

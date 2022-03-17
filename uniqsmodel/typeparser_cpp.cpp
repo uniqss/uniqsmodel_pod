@@ -1,5 +1,5 @@
 #include "typeparser_cpp.h"
-#include "uniqsproto_struct_property.h"
+#include "uniqs_struct_property.h"
 
 const char* pszRawTypeSpecific_cpp[] = {
     // clang-format off
@@ -21,7 +21,7 @@ const char* TypeParser_cpp::GetRawTypeSpecific(EUniqsRawType eType) {
     return pszRawTypeSpecific_cpp[eType];
 }
 
-std::string TypeParser_cpp::FormComplexStructMember(const UniqsProto_StructProperty& prop) {
+std::string TypeParser_cpp::FormComplexStructMember(const Uniqs_StructProperty& prop) {
     if (IsRawValueType(prop)) {
         const char* rawTypeSpecific = GetRawTypeSpecific(prop.eValueType);
         if (prop.eComplexType == EUniqsComplexType_array) {

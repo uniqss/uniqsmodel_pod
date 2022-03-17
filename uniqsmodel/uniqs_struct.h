@@ -1,13 +1,13 @@
 #pragma once
 
 #include "stl.h"
-#include "uniqsproto_types.h"
+#include "uniqs_types.h"
 
-#include "uniqsproto_struct_property.h"
+#include "uniqs_struct_property.h"
 
-class UniqsProto_Struct {
+class Uniqs_Struct {
    public:
-    std::vector<UniqsProto_StructProperty> vecProperties;
+    std::vector<Uniqs_StructProperty> vecProperties;
     std::unordered_map<std::string, int> mapProperties;
 
    public:

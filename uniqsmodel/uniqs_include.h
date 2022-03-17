@@ -3,10 +3,10 @@
 #include "stl.h"
 
 class UniqsProto;
-class UniqsProto_Include {
+class Uniqs_Include {
    public:
-    UniqsProto_Include();
-    ~UniqsProto_Include();
+    Uniqs_Include();
+    ~Uniqs_Include();
 
    public:
     std::string strName;
